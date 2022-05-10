@@ -11,6 +11,8 @@ app.config.from_object(DevConfig)
 
 # Initializing Flask Extensions
 bootstrap = Bootstrap(app)
+from .auth import auth as auth_blueprint
+app.register_blueprint(auth_blueprint,url_prefix = '/authenticate')
 
 from app.main import views
 
