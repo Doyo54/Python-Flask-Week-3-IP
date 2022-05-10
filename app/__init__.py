@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 # Setting up configuration
 app.config.from_object(DevConfig)
+app.config['SECRET_KEY'] = '1234'
 
 
 # Initializing Flask Extensions
