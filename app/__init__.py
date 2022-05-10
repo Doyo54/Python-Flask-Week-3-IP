@@ -1,4 +1,9 @@
+from ensurepip import bootstrap
 from flask import Flask
-app = Flask(__name__)
+from flask_bootstrap import Bootstrap
 
+
+app = Flask(__name__)
+bootstrap = Bootstrap(app)
 from app.main import views
+
