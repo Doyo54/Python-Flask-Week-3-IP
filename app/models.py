@@ -11,7 +11,10 @@ class User(UserMixin,db.Model):
     pass_secure = db.Column(db.String(255))
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
+    pitch = db.relationship('Pitch',backref='user', lazy='dynamic')
 
+    def __repr__(self):
+        return f'User {self.username}'
 
     @property
     def password(self):
@@ -24,10 +27,26 @@ class User(UserMixin,db.Model):
 
     def verify_password(self,password):
             return check_password_hash(self.pass_secure,password)
-    
-    def __repr__(self):
-        return f'User {self.username}'
+
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+
+class Pitch(db.Model):
+     __tablename__ = 'pitch'
+     id = db.Column(db.Integer,primary_key = True)
+     username = db.Column(db.String(255),index = True)
+     category = db.Column(db.String(100),index =True)
+     title = db.Column(db.String(100), index = True)
+     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+     def save_p(self):
+        db.session.add(self)
+        db.session.commit()
+
+        
+     def __repr__(self):
+        return f'Pitch {self.title}'
+
