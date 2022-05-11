@@ -1,7 +1,7 @@
 from flask import render_template,request,redirect,url_for,abort
 from app import app
 from flask_login import login_required,current_user
-from ..models import User,Pitch,Comment
+from ..models import User,Pitch,Comment,Upvote,Downvote
 from .forms import CreatePitch,CommentForm
 
 @app.route('/')
@@ -53,3 +53,34 @@ def comment(pitch_id):
         return redirect(url_for('.comment', pitch_id = pitch_id))
     return render_template('comment.html', form =form, pitch = pitch,all_comments=all_comments)
 
+@app.route('/like/<int:id>',methods = ['POST','GET'])
+@login_required
+def like(id):
+    get_pitches = Upvote.get_upvotes(id)
+    valid_string = f'{current_user.id}:{id}'
+    for pitch in get_pitches:
+        to_str = f'{pitch}'
+        print(valid_string+" "+to_str)
+        if valid_string == to_str:
+            return redirect(url_for('pitch',id=id))
+        else:
+            continue
+    new_vote = Upvote(user = current_user, pitch_id=id)
+    new_vote.save()
+    return redirect(url_for('pitch',id=id))
+
+@app.route('/dislike/<int:id>',methods = ['POST','GET'])
+@login_required
+def dislike(id):
+    pitch = Downvote.get_downvotes(id)
+    valid_string = f'{current_user.id}:{id}'
+    for p in pitch:
+        to_str = f'{p}'
+        print(valid_string+" "+to_str)
+        if valid_string == to_str:
+            return redirect(url_for('pitch',id=id))
+        else:
+            continue
+    new_downvote = Downvote(user = current_user, pitch_id=id)
+    new_downvote.save()
+    return redirect(url_for('pitch',id = id))

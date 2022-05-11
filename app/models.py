@@ -13,6 +13,8 @@ class User(UserMixin,db.Model):
     profile_pic_path = db.Column(db.String())
     pitch = db.relationship('Pitch',backref='user', lazy='dynamic')
     comment = db.relationship('Comment', backref='user', lazy='dynamic')
+    upvote = db.relationship('Upvote',backref='user',lazy='dynamic')
+    downvote = db.relationship('Downvote',backref='user',lazy='dynamic')
 
     def __repr__(self):
         return f'User {self.username}'
@@ -44,6 +46,8 @@ class Pitch(db.Model):
      title = db.Column(db.String(100), index = True)
      user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
      comment = db.relationship('Comment', backref='pitch', lazy='dynamic')
+     upvote = db.relationship('Upvote',backref='pitch',lazy='dynamic')
+     downvote = db.relationship('Downvote',backref='pitch',lazy='dynamic')
 
      def save_p(self):
         db.session.add(self)
