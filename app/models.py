@@ -12,6 +12,7 @@ class User(UserMixin,db.Model):
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
     pitch = db.relationship('Pitch',backref='user', lazy='dynamic')
+    comment = db.relationship('Comment', backref='user', lazy='dynamic')
 
     def __repr__(self):
         return f'User {self.username}'
@@ -38,9 +39,11 @@ class Pitch(db.Model):
      __tablename__ = 'pitch'
      id = db.Column(db.Integer,primary_key = True)
      username = db.Column(db.String(255),index = True)
-     category = db.Column(db.String(100),index =True)
+     category = db.Column(db.String(255),index =True)
+     post = db.Column(db.String(300),index =True)
      title = db.Column(db.String(100), index = True)
      user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+     comment = db.relationship('Comment', backref='pitch', lazy='dynamic')
 
      def save_p(self):
         db.session.add(self)
@@ -49,4 +52,26 @@ class Pitch(db.Model):
         
      def __repr__(self):
         return f'Pitch {self.title}'
+
+class Comment(db.Model):
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key=True)
+    comment = db.Column(db.Text(),nullable = False)
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'),nullable = False)
+    pitch_id = db.Column(db.Integer,db.ForeignKey('pitch.id'),nullable = False)
+    
+
+    def save_c(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_comments(cls,pitch_id):
+        comments = Comment.query.filter_by(pitch_id=pitch_id).all()
+
+        return comments
+
+    
+    def __repr__(self):
+        return f'comment:{self.comment}'
 

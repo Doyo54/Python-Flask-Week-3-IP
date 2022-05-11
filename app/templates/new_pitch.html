@@ -1,0 +1,41 @@
+{% extends 'base.html'%}
+{% import 'bootstrap/wtf.html' as wtf%}
+{% block content %}
+<!-- <ul class="nav nav-pills nav-justified nav-fill" role="tablist">
+    <li class="nav-item" >
+        <a id ="cats" class="nav-link" data-toggle="tab" href="#all"><strong>All Pitches</strong> </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id ="cats" data-toggle="tab" href="#jobs">Job Pitches</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id ="cats" data-toggle="tab" href="#event">Event Pitches</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id ="cats"data-toggle="tab" href="#ads">Advert Pitches</a>
+    </li>
+</ul> -->
+<div class="container-fluid " id="jobs">
+    <div class="row">
+        
+                {% for category in pitches %}
+                <div class="col-md-4" >
+                    <div class="thumbnail" id="carded">
+                        <h5 class="card-header">{{category.title}}</h5>
+                        <div class="card-body">
+                                <p>{{category.post}}</p>
+                                <p class="text-center"> Category: {{category.category}}</p>
+                                <footer class="blockquote-footer text-center" > Posted by: {{category.user.username}}</footer>
+                                <div><span class="foot" >{{category.comment.count()}} Comments</span> 
+                                    <a href="{{url_for('comment',pitch_id = category.id)}}" class="btn btn-primary"> Comment</a>
+                                </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                {% endfor %}
+
+    </div>
+</div>
+{% endblock %}

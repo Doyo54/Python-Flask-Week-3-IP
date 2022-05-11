@@ -1,10 +1,17 @@
 from flask import render_template,request,redirect,url_for,abort
 from app import app
-from ..models import User
+from flask_login import login_required,current_user
+from ..models import User,Pitch,Comment
+from .forms import CreatePitch,CommentForm
 
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/pitch')
+def pitch():
+    pitches = Pitch.query.all()
+    return render_template('new_pitch.html', pitches = pitches)
 
 @app.route('/user/<uname>')
 def profile(uname):
@@ -15,5 +22,34 @@ def profile(uname):
 
     return render_template("profile/profile.html", user = user)
 
+@app.route('/create_new', methods = ['POST','GET'])
+@login_required
+def new_pitch():
+    form =CreatePitch()
+    if form.validate_on_submit():
+        title = form.title.data
+        post = form.post.data
+        category = form.category.data
+        name = form.name.data
+        new_pitch_object = Pitch(username=name, user_id=current_user._get_current_object().id, post=post,category=category,title=title)
+        new_pitch_object.save_p()
+        return redirect(url_for('pitch'))
+        
+    return render_template('pitch.html', form = form)
 
+
+@app.route('/comment/<int:pitch_id>', methods = ['POST','GET'])
+@login_required
+def comment(pitch_id):
+    form = CommentForm()
+    pitch = Pitch.query.get(pitch_id)
+    all_comments = Comment.query.filter_by(pitch_id = pitch_id).all()
+    if form.validate_on_submit():
+        comment = form.comment.data 
+        pitch_id = pitch_id
+        user_id = current_user._get_current_object().id
+        new_comment = Comment(comment = comment,user_id = user_id,pitch_id = pitch_id)
+        new_comment.save_c()
+        return redirect(url_for('.comment', pitch_id = pitch_id))
+    return render_template('comment.html', form =form, pitch = pitch,all_comments=all_comments)
 
