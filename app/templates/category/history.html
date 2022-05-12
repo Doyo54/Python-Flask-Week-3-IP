@@ -1,0 +1,30 @@
+{% extends 'base.html'%}
+{% block content %}
+<div class="container-fluid" style="margin: 0;" id="jobs">
+    <div class="row">
+        
+                {% for category in history %}
+                <div class="col-md-4" >
+                    <div class="thumbnail" id="carded">
+                        <h5 style="color:black; font-size:x-large" class="card-header">{{category.title}}</h5>
+                        <div class="card-body">
+                                <p style="font-size: larger;">{{category.post}}</p>
+                                <p class="text-center"> Category: {{category.category}}</p>
+                                <footer class="blockquote-footer text-center" > Posted by: {{category.username}}</footer>
+                                <span class="foot" >{{category.comment.count()}} Comments</span> 
+                                    <span class="foot" > <a href="{{url_for('like',id = category.id)}}"> <i class="fa fa-thumbs-up" style="font-size:18px;color: green"></i>{{category.upvote.count()}}</a> </span>
+									
+									
+									<span class="foot"> <a href="{{url_for('dislike',id = category.id)}}"> <i class="fa fa-thumbs-down" style="color:red;"></i> {{category.downvote.count()}}</a></span>
+                                    <a href="{{url_for('comment',pitch_id = category.id)}}" class="btn btn-primary"> Comment</a>
+                                </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                {% endfor %}
+
+    </div>
+</div>
+{% endblock %}
