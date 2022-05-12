@@ -16,9 +16,6 @@ class User(UserMixin,db.Model):
     upvote = db.relationship('Upvote',backref='user',lazy='dynamic')
     downvote = db.relationship('Downvote',backref='user',lazy='dynamic')
 
-    def __repr__(self):
-        return f'User {self.username}'
-
     @property
     def password(self):
         raise AttributeError('You cannot read the password attribute')
@@ -29,7 +26,10 @@ class User(UserMixin,db.Model):
 
 
     def verify_password(self,password):
-            return check_password_hash(self.pass_secure,password)
+        return check_password_hash(self.pass_secure,password)
+    
+    def __repr__(self):
+        return f'User {self.username}'
 
 
 class Pitch(db.Model):
