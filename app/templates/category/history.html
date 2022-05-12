@@ -1,11 +1,10 @@
 {% extends 'base.html'%}
 {% block content %}
-<div class="container-fluid" style="margin: 0;" id="jobs">
+<div class="container-fluid landing">
     <div class="row">
-        
                 {% for category in history %}
-                <div class="col-md-4" >
-                    <div class="thumbnail" id="carded">
+                <div class="col-md-4 d-flex jusify-content-center" style="margin: 1%; width:20%;">
+                    <div class="card">
                         <h5 style="color:black; font-size:x-large" class="card-header">{{category.title}}</h5>
                         <div class="card-body">
                                 <p style="font-size: larger;">{{category.post}}</p>
@@ -21,7 +20,6 @@
                             
                         </div>
                     </div>
-                </div>
                 
                 {% endfor %}
 

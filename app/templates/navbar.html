@@ -1,36 +1,36 @@
-<nav class="navbar navbar-inverse" role="navigation">
-    <a href="/" class="navbar-brand">Home</a>
+<nav class="navbar navbar-inverse" role="navigation" style="font-size: x-large;">
+    <a href="/" class="navbar-brand" style="font-size: 25px;">Home</a>
       <!-- <a href="{{url_for('auth.login')}}" class="navbar-brand">Login</a> -->
   
       
-      <a href="{{url_for('new_pitch')}}" class="navbar-brand">Create Pitch</a>
-      <a href="{{url_for('pitch')}}" class="navbar-brand">View Pitches</a>
+      <a href="{{url_for('new_pitch')}}" class="navbar-brand" style="font-size: 25px;">Create Pitch</a>
+      <a href="{{url_for('pitch')}}" class="navbar-brand" style="font-size: 25px;">View All Pitches</a>
       {% if current_user.is_authenticated %}
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+      <div class="dropdown" style="font-size: larger;">
+        <button class="btn btn-secondary dropdown-toggle" style="font-size: large;" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
           Categories
         </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2" style="font-size: large;">
           <li><hr class="dropdown-divider"></li>
           <li><a class="dropdown-item active" href="{{url_for('food')}}">Food</a></li>
-          <li><a class="dropdown-item" href="#">Movies</a></li>
-          <li><a class="dropdown-item" href="#">Politics</a></li>
+          <li><a class="dropdown-item" href="{{url_for('movies')}}">Movies</a></li>
+          <li><a class="dropdown-item" href="{{url_for('politics')}}">Politics</a></li>
           <!-- <li><hr class="dropdown-divider"></li> -->
-          <li><a class="dropdown-item" href="#">History</a></li>
-          <li><a class="dropdown-item" href="#">Advertisement</a></li>
+          <li><a class="dropdown-item" href="{{url_for('history')}}">History</a></li>
+          <li><a class="dropdown-item" href="{{url_for('ads')}}">Advertisement</a></li>
         </ul>
       </div>
-      <div class="dropdown">
-        <a class="btn btn-primary dropdown-toggle" style="width: 200px;" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+      <div class="dropdown" style="font-size: larger;">
+        <a class="btn btn-primary dropdown-toggle" style="width: 150px; font-size: large;" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
           Account
         </a>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="font-size: large;">
           <li><a class="dropdown-item" href="{{url_for('profile',uname=current_user.username)}}">Profile</a></li>
           <li><a class="dropdown-item" href="{{url_for('auth.logout')}}">Sign out</a></li>
         </ul>
       </div>
       {% else %}
-      <a class="navbar-brand" href="{{url_for('auth.login')}}">Login</a></li>
+      <a class="navbar-brand" href="{{url_for('auth.login')}}" style="font-size: larger;">Login</a></li>
       {%endif%}
     
 </nav>

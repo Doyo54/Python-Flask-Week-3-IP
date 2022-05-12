@@ -19,7 +19,7 @@ def pitch():
 @app.route('/food')
 def food():
     food = Pitch.query.filter_by(category = 'Food').all() 
-    return render_template('category/food.html', foods = food)
+    return render_template('category/food.html', food = food)
 
 @app.route('/movies')
 def movies():
@@ -37,7 +37,7 @@ def history():
     return render_template('category/history.html', history = history)
 
 @app.route('/advertisement')
-def ad():
+def ads():
     advertisement = Pitch.query.filter_by(category = 'Advertisement').all()
     return render_template('category/ads.html', ads = advertisement)
 
