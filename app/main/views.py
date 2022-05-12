@@ -80,20 +80,30 @@ def comment(pitch_id):
         return redirect(url_for('.comment', pitch_id = pitch_id))
     return render_template('comment.html', form =form, pitch = pitch,all_comments=all_comments)
 
-@app.route('/like/<int:id>',methods = ['POST','GET'])
-def like(id):
-    get_pitches = Upvote.get_upvotes(id)
-    valid_string = f'{current_user.id}:{id}'
-    for pitch in get_pitches:
-        to_str = f'{pitch}'
-        print(valid_string+" "+to_str)
-        if valid_string == to_str:
-            return redirect(url_for('pitch',id=id))
-        else:
-            continue
-    new_vote = Upvote(user = current_user, pitch_id=id)
-    new_vote.save()
-    return redirect(url_for('pitch',id=id))
+# @app.route('/like/<int:id>',methods = ['POST','GET'])
+# def like(id):
+#     get_pitches = Upvote.get_upvotes(id)
+#     valid_string = f'{current_user.id}:{id}'
+#     for pitch in get_pitches:
+#         to_str = f'{pitch}'
+#         print(valid_string+" "+to_str)
+#         if valid_string == to_str:
+#             return redirect(url_for('pitch',id=id))
+#         else:
+#             continue
+#     new_vote = Upvote(user = current_user, pitch_id=id)
+#     new_vote.save()
+#     return redirect(url_for('pitch',id=id))
+@app.route('/pitch/upvote/<int:pitch_id>/upvote', methods = ['GET', 'POST'])
+def like(pitch_id):
+    user = current_user
+    
+    if Upvote.query.filter(Upvote.user_id==user.id,Upvote.pitch_id==pitch_id).first():
+        return  redirect(url_for('pitch'))
+
+    new_upvote = Upvote(pitch_id=pitch_id, user = current_user)
+    new_upvote.save()
+    return redirect(url_for('pitch'))
 
 @app.route('/dislike/<int:id>',methods = ['POST','GET'])
 def dislike(id):

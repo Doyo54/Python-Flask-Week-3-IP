@@ -1,6 +1,6 @@
 from . import db,login_manager
 from werkzeug.security import generate_password_hash,check_password_hash
-from flask_login import UserMixin
+from flask_login import UserMixin,current_user
 
 
 class User(UserMixin,db.Model):
@@ -78,6 +78,7 @@ class Upvote(db.Model):
     __tablename__ = 'upvotes'
 
     id = db.Column(db.Integer,primary_key=True)
+    upvote = db.Column(db.Integer,default=1)
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
     pitch_id = db.Column(db.Integer,db.ForeignKey('pitch.id'))
     
@@ -86,10 +87,20 @@ class Upvote(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    def add_upvotes(cls,id):
+        upvote_pitch = Upvote(user = current_user, pitch_id=id)
+        upvote_pitch.save()
+
+    
     @classmethod
     def get_upvotes(cls,id):
         upvote = Upvote.query.filter_by(pitch_id=id).all()
         return upvote
+
+    @classmethod
+    def get_all_upvotes(cls,pitch_id):
+        upvotes = Upvote.query.order_by('id').all()
+        return upvotes
 
 
     def __repr__(self):
