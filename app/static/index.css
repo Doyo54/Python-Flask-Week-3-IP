@@ -3,6 +3,7 @@ body {
     padding:0;
     background:radial-gradient(#333,#000);
     color: white;
+    font-family: 'Mukta', sans-serif;
 
 }
 div{
@@ -111,12 +112,13 @@ h2{
     top:30%;
     left: 10%;
     width:80%;
-	font-family: 'Courgette', cursive;
+
     font-size:4em;
     text-align:center;
     transform:translate ;
     color:burlywood;
     transform:translateY (-50%);
+
 }
 small{
     width: fit-content;

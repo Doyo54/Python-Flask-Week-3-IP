@@ -18,10 +18,4 @@ class CommentForm(FlaskForm):
 class UpdateProfile(FlaskForm):
     bio = TextAreaField('Tell us about you.',validators = [DataRequired()])
     submit = SubmitField('Submit')
-    
-class UpvoteForm(FlaskForm):
-	submit = SubmitField()
 
-
-class Downvote(FlaskForm):
-	submit = SubmitField()
