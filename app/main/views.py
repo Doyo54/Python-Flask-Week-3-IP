@@ -14,12 +14,6 @@ def index():
 @login_required
 def pitch():
     pitches = Pitch.query.all()
-    # food = Pitch.query.filter_by(category = 'Food').all() 
-    # movies = Pitch.query.filter_by(category = 'Movies').all()
-    # politics = Pitch.query.filter_by(category = 'Politics').all()
-    # history = Pitch.query.filter_by(category = 'History').all()
-    # advertisement = Pitch.query.filter_by(category = 'Advertisement').all()
-    
     return render_template('new_pitch.html', pitches = pitches)
 
 @app.route('/food')
@@ -36,6 +30,16 @@ def movies():
 def politics():
     politics = Pitch.query.filter_by(category = 'Politics').all()
     return render_template('category/politics.html', politics = politics)
+
+@app.route('/history')
+def history():
+    history = Pitch.query.filter_by(category = 'History').all()
+    return render_template('category/history.html', history = history)
+
+@app.route('/advertisement')
+def ad():
+    advertisement = Pitch.query.filter_by(category = 'Advertisement').all()
+    return render_template('category/ads.html', ads = advertisement)
 
 @app.route('/user/<uname>')
 def profile(uname):
