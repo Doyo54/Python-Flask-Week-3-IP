@@ -3,7 +3,15 @@ body {
     padding:0;
     overflow:hidden;
     background:radial-gradient(#333,#000);
+    color: white;
 
+}
+div{
+    color: white;
+    font-size: x-large;
+}
+p{
+    color: black;
 }
     /* section h2{
      height: 100%;   

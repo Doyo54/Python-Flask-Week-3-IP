@@ -2,7 +2,8 @@ from flask import render_template,request,redirect,url_for,abort
 from app import app
 from flask_login import login_required,current_user
 from ..models import User,Pitch,Comment,Upvote,Downvote
-from .forms import CreatePitch,CommentForm
+from .forms import CreatePitch,CommentForm,UpdateProfile
+from .. import db
 
 @app.route('/')
 def index():
@@ -84,3 +85,23 @@ def dislike(id):
     new_downvote = Downvote(user = current_user, pitch_id=id)
     new_downvote.save()
     return redirect(url_for('pitch',id = id))
+
+@app.route('/user/<uname>/update',methods = ['GET','POST'])
+@login_required
+def update_profile(uname):
+    user = User.query.filter_by(username = uname).first()
+    if user is None:
+        abort(404)
+
+    form = UpdateProfile()
+
+    if form.validate_on_submit():
+        user.bio = form.bio.data
+
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for('profile',uname=user.username))
+
+    return render_template('profile/update.html',form =form)
+
