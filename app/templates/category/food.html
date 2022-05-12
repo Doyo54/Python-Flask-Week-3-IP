@@ -1,17 +1,9 @@
 {% extends 'base.html'%}
-{% import 'bootstrap/wtf.html' as wtf%}
 {% block content %}
-<!-- <h1>Categories</h1>
-<div class="navbar navbar-inverse" role="navigation">
-    <a href="{{url_for('food')}}" class="navbar-brand">Food</a>
-    <a href="/" class="navbar-brand">Home</a>
-    <a href="/" class="navbar-brand">Home</a>
-
-</div> -->
-<h2 style="text-align:left; text-decoration: underline;"> All pitches</h1>
 <div class="container-fluid" style="margin: 0;" id="jobs">
     <div class="row">
-                {% for category in pitches %}
+        
+                {% for category in foods %}
                 <div class="col-md-4" >
                     <div class="thumbnail" id="carded">
                         <h5 style="color:black; font-size:x-large" class="card-header">{{category.title}}</h5>

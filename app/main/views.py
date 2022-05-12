@@ -1,3 +1,4 @@
+from unicodedata import category
 from flask import render_template,request,redirect,url_for,abort
 from app import app
 from flask_login import login_required,current_user
@@ -10,9 +11,31 @@ def index():
     return render_template('index.html')
 
 @app.route('/pitch')
+@login_required
 def pitch():
     pitches = Pitch.query.all()
+    # food = Pitch.query.filter_by(category = 'Food').all() 
+    # movies = Pitch.query.filter_by(category = 'Movies').all()
+    # politics = Pitch.query.filter_by(category = 'Politics').all()
+    # history = Pitch.query.filter_by(category = 'History').all()
+    # advertisement = Pitch.query.filter_by(category = 'Advertisement').all()
+    
     return render_template('new_pitch.html', pitches = pitches)
+
+@app.route('/food')
+def food():
+    food = Pitch.query.filter_by(category = 'Food').all() 
+    return render_template('category/food.html', foods = food)
+
+@app.route('/movies')
+def movies():
+    movies = Pitch.query.filter_by(category = 'Movies').all()
+    return render_template('category/movie.html', movies = movies)
+
+@app.route('/politics')
+def politics():
+    politics = Pitch.query.filter_by(category = 'Politics').all()
+    return render_template('category/politics.html', politics = politics)
 
 @app.route('/user/<uname>')
 def profile(uname):
@@ -40,7 +63,6 @@ def new_pitch():
 
 
 @app.route('/comment/<int:pitch_id>', methods = ['POST','GET'])
-@login_required
 def comment(pitch_id):
     form = CommentForm()
     pitch = Pitch.query.get(pitch_id)
@@ -55,7 +77,6 @@ def comment(pitch_id):
     return render_template('comment.html', form =form, pitch = pitch,all_comments=all_comments)
 
 @app.route('/like/<int:id>',methods = ['POST','GET'])
-@login_required
 def like(id):
     get_pitches = Upvote.get_upvotes(id)
     valid_string = f'{current_user.id}:{id}'
@@ -71,7 +92,6 @@ def like(id):
     return redirect(url_for('pitch',id=id))
 
 @app.route('/dislike/<int:id>',methods = ['POST','GET'])
-@login_required
 def dislike(id):
     pitch = Downvote.get_downvotes(id)
     valid_string = f'{current_user.id}:{id}'
@@ -87,7 +107,6 @@ def dislike(id):
     return redirect(url_for('pitch',id = id))
 
 @app.route('/user/<uname>/update',methods = ['GET','POST'])
-@login_required
 def update_profile(uname):
     user = User.query.filter_by(username = uname).first()
     if user is None:

@@ -2,9 +2,24 @@
     <a href="/" class="navbar-brand">Home</a>
       <!-- <a href="{{url_for('auth.login')}}" class="navbar-brand">Login</a> -->
   
-      {% if current_user.is_authenticated %}
+      
       <a href="{{url_for('new_pitch')}}" class="navbar-brand">Create Pitch</a>
       <a href="{{url_for('pitch')}}" class="navbar-brand">View Pitches</a>
+      {% if current_user.is_authenticated %}
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+          Categories
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item active" href="{{url_for('food')}}">Food</a></li>
+          <li><a class="dropdown-item" href="#">Movies</a></li>
+          <li><a class="dropdown-item" href="#">Politics</a></li>
+          <!-- <li><hr class="dropdown-divider"></li> -->
+          <li><a class="dropdown-item" href="#">History</a></li>
+          <li><a class="dropdown-item" href="#">Advertisement</a></li>
+        </ul>
+      </div>
       <div class="dropdown">
         <a class="btn btn-primary dropdown-toggle" style="width: 200px;" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
           Account
@@ -14,9 +29,8 @@
           <li><a class="dropdown-item" href="{{url_for('auth.logout')}}">Sign out</a></li>
         </ul>
       </div>
-      
       {% else %}
-      <li><a href="{{url_for('auth.login')}}">Login</a></li>
+      <a class="navbar-brand" href="{{url_for('auth.login')}}">Login</a></li>
       {%endif%}
     
 </nav>

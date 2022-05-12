@@ -7,7 +7,7 @@ from ..models import Pitch
 class CreatePitch(FlaskForm):
     name = StringField('Your Name',validators=[DataRequired()])
     title = StringField('Title',validators =[DataRequired()])
-    category = SelectField('Category', choices=[('Events','Events'),('Job','Job'),('Advertisement','Advertisement')],validators=[DataRequired()])
+    category = SelectField('Category', choices=[('Food','Food'),('Movies','Movies'),('Politics','Politics'),('History','History'),('Advertisement','Advertisement')],validators=[DataRequired()])
     post = StringField('Pitch',validators =[DataRequired()])
     submit = SubmitField('Submit Pitch')
 
