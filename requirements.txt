@@ -57,6 +57,7 @@ netifaces==0.10.9
 oauthlib==3.1.0
 olefile==0.46
 paramiko==2.7.2
+pbr==5.9.0
 pexpect==4.8.0
 Pillow==8.1.2
 pipreqs==0.4.11
@@ -83,6 +84,7 @@ simplejson==3.17.2
 six==1.16.0
 SQLAlchemy==1.4.36
 systemd-python==234
+testresources==2.0.1
 ubuntu-advantage-tools==27.2
 ubuntu-drivers-common==0.0.0
 ufw==0.36.1
