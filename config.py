@@ -1,4 +1,5 @@
 import os
+import psycopg2
 class Config:
     '''
     General configuration parent class
@@ -17,6 +18,7 @@ class ProdConfig(Config):
         Config: The parent configuration class with General configuration settings
     '''
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+    conn = psycopg2.connect(SQLALCHEMY_DATABASE_URI, sslmode='require')
 
 
 class DevConfig(Config):
