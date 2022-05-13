@@ -75,7 +75,6 @@ six==1.16.0
 SQLAlchemy==1.4.36
 systemd-python==234
 testresources==2.0.1
-ubuntu-advantage-tools==27.2
 ubuntu-drivers-common==0.0.0
 ufw==0.36.1
 unattended-upgrades==0.1
