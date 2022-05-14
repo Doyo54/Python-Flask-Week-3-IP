@@ -25,8 +25,5 @@ Login Page
 ## Known Bugs
 No known bugs
 
-## Deployment Problems
-Deployment of app was successful but Database could not be deployed to heroku.Hence,in order to view the app properly kindly clone the repositor, install the required extensions and run the the file using the command shown above
-
 ## Copyright and license information
 ### The app is open source and in compliance with MIT License Copyright (c) 2022 {Doyo Abdikadir Doyo}
