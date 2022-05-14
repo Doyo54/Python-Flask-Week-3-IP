@@ -19,6 +19,7 @@ def create_app(config_name):
     app.config.from_object(config_options[config_name])
     app.config.from_object(DevConfig)
     app.config['SECRET_KEY'] = '1234'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://vsqhvgrthkqxkx:81126465b8db77922272b91afa85ae46992ad2c8ff00039db63ece57f44929cd@ec2-44-196-223-128.compute-1.amazonaws.com:5432/d2vtv4k7qp233f'
 
 
 
