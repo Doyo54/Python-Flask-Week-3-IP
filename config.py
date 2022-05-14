@@ -17,7 +17,7 @@ class ProdConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+    SQLALCHEMY_DATABASE_URI = 'postgres://pxvpooqgwrgihu:09288300ba661ffc843ca2d5deea48b14c7a7b4c5359f5488220686f11239d34@ec2-34-227-120-79.compute-1.amazonaws.com:5432/dei07hbrpr3qsn'
     conn = psycopg2.connect(SQLALCHEMY_DATABASE_URI, sslmode='require')
 
 
