@@ -19,7 +19,7 @@ def create_app(config_name):
     app.config.from_object(config_options[config_name])
     app.config.from_object(DevConfig)
     app.config['SECRET_KEY'] = '1234'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://doyo:doyo123@localhost/pitch'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://doyo:doyo123@localhost:5433/pitch'
 
 
 
